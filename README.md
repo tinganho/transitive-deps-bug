@@ -18,6 +18,8 @@ The reasons seems to be there is no linkage underneath `node_modules`(The screen
 
 ![Screenshot of the bug](screenshot.png "Screenshot")
 
+Also, to reproduce wheren't so easy. It requires at least import with file reference i.e. `@org/package/file` and an enum in the transitive dep, and in the source file you also need some type operation fiddling to reproduce it.
+
 And when you remove `data` attribute in `ts.bzl` the error dissapears:
 
 ![Screenshot of the bug](ts.bzl.png "Screenshot")
