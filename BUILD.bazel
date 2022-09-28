@@ -1,0 +1,37 @@
+
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_rules_js//npm:defs.bzl", "npm_link_package")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("//:npm.bzl", "NPM_WORKSPACES")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary", "js_test")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+package(default_visibility = ["//visibility:public"])
+
+npm_link_all_packages(name = "node_modules")
+
+ts_config(
+    name = "tsconfig",
+    src = ":tsconfig.json",
+)
+
+[npm_link_package(
+    name = "node_modules/@myorg/" + npm_pkg,
+    link = True,
+    src = label,
+) for label, npm_pkg in NPM_WORKSPACES.items()]
+
+ts_project(
+    name = "ts_project",
+    srcs = ["index.ts"],
+    tsconfig = "//:tsconfig",
+    declaration = True,
+    supports_workers = False,
+    deps = ["//:node_modules/@myorg/a"],
+)
+
+js_binary(
+    name = "foo",
+    data = [":ts_project"],
+    entry_point = "index.js",
+)

@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "noEmit": false,
+        "target": "esnext",
+        "module": "commonjs",
+        "sourceMap": false,
+        "baseUrl": ".",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "moduleResolution": "node",
+        "paths": {
+            "@myorg/*": ["./packages/*"]
+        }
+    }
+}

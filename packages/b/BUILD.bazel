@@ -1,0 +1,9 @@
+load("//:ts.bzl", "ts_test")
+
+package(default_visibility = ["//visibility:public"])
+
+ts_test(
+    name = "b",
+    srcs = ["bar.ts"],
+    deps = ["//packages/c:c"]
+)
